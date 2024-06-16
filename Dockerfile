@@ -1,8 +1,8 @@
-FROM maven:3.9.7-openjdk-17 AS build
+FROM maven:3.9.7-amazoncorretto-17 AS build
 COPY . .
 RUN mvn clean package -DskipTests
 
-FROM openjdk:17-jdk-slim
+FROM amazoncorretto:17-alpine-jdk
 COPY --from=build /target/sisvita-0.0.1-SNAPSHOT.war /app.war
 EXPOSE 8080
 

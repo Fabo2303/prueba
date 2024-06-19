@@ -41,6 +41,7 @@ public class HttpSecurityConfig {
                     authConfig.requestMatchers(HttpMethod.GET, "/api/respuestas/**").permitAll();
                     authConfig.requestMatchers(HttpMethod.POST, "/api/tests/**").permitAll();
                     authConfig.requestMatchers(HttpMethod.POST, "/api/respuestas/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/tiposTests/**").permitAll();
                 });
         return http.build();
     }

@@ -19,5 +19,6 @@ public class Persona {
     private Date fechaNacimiento;
     private String sexo;
     private String telefono;
+    private String ubigeo;
 
 }

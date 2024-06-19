@@ -15,4 +15,5 @@ public class Alternativa {
     private Long idTipoTest;
     private String descripcion;
     private int puntaje;
+    private int puntajeInvertido;
 }

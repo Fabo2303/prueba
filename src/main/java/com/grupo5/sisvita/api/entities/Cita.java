@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+import java.sql.Date;
+
 @Data
 @Entity
 public class Cita {
@@ -15,7 +17,7 @@ public class Cita {
 
     private Long idPaciente;
     private Long idEspecialista;
-    private String fecha;
+    private Date fecha;
     private String motivo;
     private String detalle;
     private String estado;

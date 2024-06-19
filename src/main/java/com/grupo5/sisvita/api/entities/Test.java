@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+import java.sql.Date;
+
 @Entity
 @Data
 public class Test {
@@ -17,5 +19,5 @@ public class Test {
     private Long idPaciente;
     private int resultado;
     private String interpretacion;
-    private String fecha;
+    private Date fecha;
 }

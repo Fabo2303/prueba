@@ -74,11 +74,17 @@ public class TestController {
         return ResponseEntity.ok().body(testService.findByIdPacienteAndIdTipoTestAndFecha(idPaciente, idTipoTest, fecha));
     }
 
+    @GetMapping("/findAll")
+    public ResponseEntity<?> findAll() {
+        return ResponseEntity.ok().body(testService.findAll());
+    }
+
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody Test test) {
         if (test == null) {
             return ResponseEntity.badRequest().body("No se puede guardar un test nulo");
         }
+        test.setFecha(new Date(System.currentTimeMillis()));
         testService.save(test);
         Map<String, String> response = new HashMap<>();
         response.put("message", "Test guardado con éxito");

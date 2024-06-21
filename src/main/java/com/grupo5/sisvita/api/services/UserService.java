@@ -5,6 +5,8 @@ import com.grupo5.sisvita.api.entities.Persona;
 import com.grupo5.sisvita.api.entities.User;
 import com.grupo5.sisvita.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,9 @@ public class UserService {
             persona = personaService.savePersona(persona);
             user.setPersona(persona);
         }
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return userRepository.save(user);
     }
 

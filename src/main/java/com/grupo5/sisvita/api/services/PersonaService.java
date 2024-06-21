@@ -2,6 +2,7 @@ package com.grupo5.sisvita.api.services;
 
 import com.grupo5.sisvita.api.dto.PersonaDTO;
 import com.grupo5.sisvita.api.entities.Persona;
+import com.grupo5.sisvita.api.entities.Ubigeo;
 import com.grupo5.sisvita.api.repositories.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,15 @@ public class PersonaService {
     @Autowired
     private PersonaRepository personaRepository;
 
+    @Autowired
+    private UbigeoService ubigeoService;
+
     public Persona savePersona(Persona persona) {
+        Ubigeo ubigeo = persona.getUbigeo();
+        if (ubigeo != null) {
+            ubigeo = ubigeoService.findByUbigeo(ubigeo.getUbigeo());
+            persona.setUbigeo(ubigeo);
+        }
         return personaRepository.save(persona);
     }
 

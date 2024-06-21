@@ -2,8 +2,7 @@ package com.grupo5.sisvita.api.entities;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.grupo5.sisvita.config.CustomDateDeserializer;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
@@ -12,19 +11,21 @@ import java.sql.Date;
 @Data
 public class Persona {
     @Id
-    private String documento;
+    private String document;
 
-    private String tipoDocumento;
-    private String nombre;
-    private String apellidoPaterno;
-    private String apellidoMaterno;
+    private String documentType;
+    private String name;
+    private String lastName;
+    private String secondLastName;
 
     @JsonDeserialize(using = CustomDateDeserializer.class)
-    private Date fechaNacimiento;
+    private Date birthDate;
 
+    private String sex;
+    private String phone;
+    private String email;
 
-    private String sexo;
-    private String telefono;
-    private String ubigeo;
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ubigeo")
+    private Ubigeo ubigeo;
 }

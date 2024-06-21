@@ -1,6 +1,6 @@
 package com.grupo5.sisvita.service;
 
-import com.grupo5.sisvita.api.entities.Usuario;
+import com.grupo5.sisvita.api.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -13,12 +13,12 @@ import java.util.Map;
 
 @Service
 public class JwtService {
-    public String generateToken(Usuario user, Map<String, Object> claims) {
+    public String generateToken(User user, Map<String, Object> claims) {
         Date issuedAt = new Date(System.currentTimeMillis());
         Date expiration = new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 8);
         return Jwts.builder()
                 .claims().empty().add(claims)
-                .subject(user.getNombreUsuario())
+                .subject(user.getUsername())
                 .issuedAt(issuedAt)
                 .expiration(expiration)
                 .and()

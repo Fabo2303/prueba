@@ -1,7 +1,7 @@
 package com.grupo5.sisvita.service;
 
-import com.grupo5.sisvita.api.entities.Usuario;
-import com.grupo5.sisvita.api.repositories.UsuarioRepository;
+import com.grupo5.sisvita.api.entities.User;
+import com.grupo5.sisvita.api.repositories.UserRepository;
 import com.grupo5.sisvita.dto.AuthenticationRequest;
 import com.grupo5.sisvita.dto.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class AuthenticationService {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UsuarioRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private JwtService jwtService;
@@ -26,10 +26,10 @@ public class AuthenticationService {
     public AuthenticationResponse login(AuthenticationRequest authRequest) {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 authRequest.getUsername(), authRequest.getPassword());
-        Usuario user;
+        User user;
         try {
             authenticationManager.authenticate(authToken);
-            user = userRepository.findByNombreUsuario(authRequest.getUsername()).orElse(null);
+            user = userRepository.findByUsername(authRequest.getUsername()).orElse(null);
         } catch (Exception e) {
             return new AuthenticationResponse(null);
         }
@@ -39,10 +39,10 @@ public class AuthenticationService {
         return new AuthenticationResponse(jwt);
     }
 
-    private Map<String, Object> generateExtraClaims(Usuario user) {
+    private Map<String, Object> generateExtraClaims(User user) {
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("name", user.getUsername());
-        extraClaims.put("role", user.getRol().name());
+        extraClaims.put("role", user.getRole().name());
         extraClaims.put("permissions", user.getAuthorities());
         return extraClaims;
     }

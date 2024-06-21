@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -33,7 +34,7 @@ public class ResolvedTestController {
     private QuestionService questionService;
 
     @PostMapping()
-    public ResponseEntity<ResolvedTest> createResolvedTest(@RequestBody ResolvedTestDTO resolvedTestDTO) {
+    public ResponseEntity<?> createResolvedTest(@RequestBody ResolvedTestDTO resolvedTestDTO) {
         TemplateTest templateTest = templateTestService.findById(resolvedTestDTO.getTemplateTestId());
 
         List<AnswerDTO> answersDTO = resolvedTestDTO.getAnswers();
@@ -59,7 +60,9 @@ public class ResolvedTestController {
 
         ResolvedTest savedResolvedTest = resolvedTestService.saveResolvedTest(resolvedTest);
 
-        return ResponseEntity.ok(savedResolvedTest);
+        // agregar un message: "Test resuelto correctamente"
+        Map<String, String> response = Map.of("message", "Test resuelto correctamente");
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping()

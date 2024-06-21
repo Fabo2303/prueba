@@ -1,5 +1,6 @@
 package com.grupo5.sisvita.config;
 
+import com.grupo5.sisvita.api.repositories.UserRepository;
 import com.grupo5.sisvita.api.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SecurityBeansInjector {
     @Autowired
-    private UsuarioRepository userRepository;
+    private UserRepository userRepository;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -38,7 +39,7 @@ public class SecurityBeansInjector {
     @Bean
     public UserDetailsService userDetailsService(){
         return username -> {
-            return userRepository.findByNombreUsuario(username)
+            return userRepository.findByUsername(username)
                     .orElseThrow(() -> new RuntimeException("User not found"));
         };
     }

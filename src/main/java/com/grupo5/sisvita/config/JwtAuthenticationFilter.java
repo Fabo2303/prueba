@@ -1,7 +1,7 @@
 package com.grupo5.sisvita.config;
 
-import com.grupo5.sisvita.api.entities.Usuario;
-import com.grupo5.sisvita.api.repositories.UsuarioRepository;
+import com.grupo5.sisvita.api.entities.User;
+import com.grupo5.sisvita.api.repositories.UserRepository;
 import com.grupo5.sisvita.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,7 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtService jwtService;
 
     @Autowired
-    private UsuarioRepository userRepository;
+    private UserRepository userRepository;
 
     @SuppressWarnings("null")
     @Override
@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String jwt = authHeader.replace("Bearer ", "");
         String username = jwtService.extractUsername(jwt);
 
-        Usuario user = userRepository.findByNombreUsuario(username).get();
+        User user = userRepository.findByUsername(username).get();
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null,
                 user.getAuthorities());
 

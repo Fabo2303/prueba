@@ -2,6 +2,7 @@ package com.grupo5.sisvita.api.services;
 
 import com.grupo5.sisvita.api.dto.PatientDTO;
 import com.grupo5.sisvita.api.entities.Patient;
+import com.grupo5.sisvita.api.entities.User;
 import com.grupo5.sisvita.api.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,15 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
+    @Autowired
+    private UserService userService;
+
     public Patient savePatient(Patient patient) {
+        User user = patient.getUser();
+        if (user != null) {
+            user = userService.saveUser(user);
+            patient.setUser(user);
+        }
         return patientRepository.save(patient);
     }
 

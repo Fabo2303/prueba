@@ -2,6 +2,7 @@ package com.grupo5.sisvita.api.services;
 
 import com.grupo5.sisvita.api.dto.ResolvedTestDTO;
 import com.grupo5.sisvita.api.entities.Alternative;
+import com.grupo5.sisvita.api.entities.Answer;
 import com.grupo5.sisvita.api.entities.Question;
 import com.grupo5.sisvita.api.entities.ResolvedTest;
 import com.grupo5.sisvita.api.repositories.ResolvedTestRepository;
@@ -36,8 +37,14 @@ public class ResolvedTestService {
     }
 
     public int sumResultFromAlternatives(ResolvedTest resolvedTest) {
-        List<Question> questions = resolvedTest.getTemplateTest().getQuestions();
-        List<Alternative> alternatives = resolvedTest.getTemplateTest().getAlternatives();
+        List<Answer> answers = resolvedTest.getAnswers();
+
+        List<Question> questions = answers.stream()
+                .map(Answer::getQuestion)
+                .toList();
+        List<Alternative> alternatives = answers.stream()
+                .map(Answer::getAlternative)
+                .toList();
         int result = 0;
         for(int i = 0; i < questions.size(); i++) {
             Question question = questions.get(i);

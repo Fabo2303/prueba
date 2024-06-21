@@ -20,8 +20,8 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    public Optional<Question> findById(Long id) {
-        return questionRepository.findById(id);
+    public Question findById(Long id) {
+        return questionRepository.findById(id).orElse(null);
     }
 
     public List<QuestionDTO> findAllQuestions() {

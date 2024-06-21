@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,4 +31,8 @@ public class ResolvedTest {
     @JoinColumn(name = "classification_id")
     @JsonIgnoreProperties({"templateTest"})
     private Classification classification;
+
+    @OneToMany(mappedBy = "resolvedTest", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"resolvedTest"})
+    private List<Answer> answers = new ArrayList<>();
 }

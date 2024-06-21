@@ -1,15 +1,16 @@
 package com.grupo5.sisvita.api.controllers;
 
+import com.grupo5.sisvita.api.dto.AlternativeDTO;
+import com.grupo5.sisvita.api.dto.AnswerDTO;
 import com.grupo5.sisvita.api.dto.ResolvedTestDTO;
-import com.grupo5.sisvita.api.entities.Classification;
-import com.grupo5.sisvita.api.entities.ResolvedTest;
-import com.grupo5.sisvita.api.entities.TemplateTest;
-import com.grupo5.sisvita.api.services.ClassificationService;
-import com.grupo5.sisvita.api.services.ResolvedTestService;
-import com.grupo5.sisvita.api.services.TemplateTestService;
+import com.grupo5.sisvita.api.entities.*;
+import com.grupo5.sisvita.api.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -25,15 +26,39 @@ public class ResolvedTestController {
     @Autowired
     private ClassificationService classificationService;
 
+    @Autowired
+    private AlternativesService alternativesService;
+
+    @Autowired
+    private QuestionService questionService;
+
     @PostMapping()
     public ResponseEntity<ResolvedTest> createResolvedTest(@RequestBody ResolvedTestDTO resolvedTestDTO) {
         TemplateTest templateTest = templateTestService.findById(resolvedTestDTO.getTemplateTestId());
+
+        List<AnswerDTO> answersDTO = resolvedTestDTO.getAnswers();
+        List<Answer> answers = new ArrayList<>();
         ResolvedTest resolvedTest = resolvedTestDTO.toEntity();
+
+        for (AnswerDTO answerDTO : answersDTO) {
+            Answer answer = new Answer();
+            answer.setAlternative(alternativesService.findById(answerDTO.getIdAlternative()));
+            answer.setQuestion(questionService.findById(answerDTO.getIdQuestion()));
+            answer.setResolvedTest(resolvedTest);
+            answers.add(answer);
+        }
+
         resolvedTest.setTemplateTest(templateTest);
+        resolvedTest.setAnswers(answers);
+
         resolvedTest.setResult(resolvedTestService.sumResultFromAlternatives(resolvedTest));
+
         Classification classification = classificationService.findByTemplateTestIdAndResult(templateTest.getId(), resolvedTest.getResult());
+
         resolvedTest.setClassification(classification);
+
         ResolvedTest savedResolvedTest = resolvedTestService.saveResolvedTest(resolvedTest);
+
         return ResponseEntity.ok(savedResolvedTest);
     }
 

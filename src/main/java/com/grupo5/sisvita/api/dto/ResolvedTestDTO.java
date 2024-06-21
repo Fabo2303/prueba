@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,14 +22,16 @@ public class ResolvedTestDTO {
 
     private Long templateTestId;
     private Long classificationId;
+    private List<AnswerDTO> answers;
 
     public static ResolvedTestDTO fromEntity(ResolvedTest resolvedTest) {
         return new ResolvedTestDTO(
-            resolvedTest.getId(),
-            resolvedTest.getResult(),
-            resolvedTest.getDate(),
-            resolvedTest.getTemplateTest().getId(),
-            resolvedTest.getClassification().getId()
+                resolvedTest.getId(),
+                resolvedTest.getResult(),
+                resolvedTest.getDate(),
+                resolvedTest.getTemplateTest().getId(),
+                resolvedTest.getClassification().getId(),
+                resolvedTest.getAnswers().stream().map(AnswerDTO::fromEntity).toList()
         );
     }
 

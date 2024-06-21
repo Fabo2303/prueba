@@ -30,7 +30,7 @@ public class QuestionController {
 
     @GetMapping("/findById/{id}")
     public ResponseEntity<Question> findById(@PathVariable Long id) {
-        Question question = questionService.findById(id).orElse(null);
+        Question question = questionService.findById(id);
         return ResponseEntity.ok().body(question);
     }
 }

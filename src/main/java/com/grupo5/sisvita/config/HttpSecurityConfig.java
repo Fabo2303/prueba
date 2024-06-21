@@ -34,14 +34,27 @@ public class HttpSecurityConfig {
                 .authorizeHttpRequests(authConfig -> {
                     authConfig.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
                     authConfig.requestMatchers(HttpMethod.GET, "/auth/public-access").permitAll();
-                    authConfig.requestMatchers(HttpMethod.GET, "/api/usuarios/all").hasAuthority(Permission.READ_ALL_USERS.name());
-                    authConfig.requestMatchers(HttpMethod.GET, "/api/preguntas/**").permitAll();
-                    authConfig.requestMatchers(HttpMethod.GET, "/api/alternativas/**").permitAll();
-                    authConfig.requestMatchers(HttpMethod.GET, "/api/tests/**").permitAll();
-                    authConfig.requestMatchers(HttpMethod.GET, "/api/respuestas/**").permitAll();
-                    authConfig.requestMatchers(HttpMethod.POST, "/api/tests/**").permitAll();
-                    authConfig.requestMatchers(HttpMethod.POST, "/api/respuestas/**").permitAll();
-                    authConfig.requestMatchers(HttpMethod.GET, "api/tiposTests/**").permitAll();
+
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/alternative/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/alternative/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/classification/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/classification/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/patient/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/patient/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/persona/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/persona/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/specialist/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/specialist/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/question/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/question/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/resolved-test/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/resolved-test/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/ubigeo/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/ubigeo/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/user/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/user/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/template-test/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/template-test/**").permitAll();
                 });
         return http.build();
     }

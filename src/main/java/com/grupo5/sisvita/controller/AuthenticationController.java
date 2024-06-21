@@ -1,7 +1,7 @@
 package com.grupo5.sisvita.controller;
 
-import com.grupo5.sisvita.api.entities.Usuario;
-import com.grupo5.sisvita.api.repositories.UsuarioRepository;
+import com.grupo5.sisvita.api.entities.User;
+import com.grupo5.sisvita.api.repositories.UserRepository;
 import com.grupo5.sisvita.dto.AuthenticationRequest;
 import com.grupo5.sisvita.dto.AuthenticationResponse;
 import com.grupo5.sisvita.service.AuthenticationService;
@@ -22,12 +22,12 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @Autowired
-    private UsuarioRepository userRepository;
+    private UserRepository userRepository;
 
     @PreAuthorize("permitAll")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Validated AuthenticationRequest authRequest) {
-        Usuario user = userRepository.findByNombreUsuario(authRequest.getUsername()).orElse(null);
+        User user = userRepository.findByUsername(authRequest.getUsername()).orElse(null);
 
         if (user == null) {
             return ResponseEntity.status(404).body("El usuario no existe");
@@ -38,7 +38,7 @@ public class AuthenticationController {
             return ResponseEntity.status(404).body("La contraseña es incorrecta");
         }
 
-        if (user.getRol() == null) {
+        if (user.getRole() == null) {
             return ResponseEntity.status(404).body("El usuario no tiene un rol asignado");
         }
 

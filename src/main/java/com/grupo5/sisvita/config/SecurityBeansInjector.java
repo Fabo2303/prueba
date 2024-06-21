@@ -1,7 +1,6 @@
 package com.grupo5.sisvita.config;
 
 import com.grupo5.sisvita.api.repositories.UserRepository;
-import com.grupo5.sisvita.api.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

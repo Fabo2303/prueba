@@ -9,10 +9,11 @@ import java.io.IOException;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class CustomDateDeserializer extends JsonDeserializer<java.sql.Date>{
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
 
     @Override
     public java.sql.Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {

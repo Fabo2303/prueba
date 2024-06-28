@@ -55,6 +55,8 @@ public class HttpSecurityConfig {
                     authConfig.requestMatchers(HttpMethod.POST, "/api/user/**").permitAll();
                     authConfig.requestMatchers(HttpMethod.GET, "/api/template-test/**").permitAll();
                     authConfig.requestMatchers(HttpMethod.POST, "/api/template-test/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/consignacion/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/consignacion/**").permitAll();
                 });
         return http.build();
     }

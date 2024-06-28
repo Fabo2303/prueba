@@ -1,6 +1,8 @@
 package com.grupo5.sisvita.api.services;
 
-import com.grupo5.sisvita.api.dto.PatientDTO;
+import com.grupo5.sisvita.api.dto.response.PatientDTO;
+import com.grupo5.sisvita.api.dto.requests.PatientRequest;
+import com.grupo5.sisvita.api.dto.requests.UserRequest;
 import com.grupo5.sisvita.api.entities.Patient;
 import com.grupo5.sisvita.api.entities.User;
 import com.grupo5.sisvita.api.repositories.PatientRepository;
@@ -18,10 +20,11 @@ public class PatientService {
     @Autowired
     private UserService userService;
 
-    public Patient savePatient(Patient patient) {
-        User user = patient.getUser();
-        if (user != null) {
-            user = userService.saveUser(user);
+    public Patient savePatient(PatientRequest patientRequest) {
+        UserRequest userRequest = patientRequest.getUserRequest();
+        Patient patient = new Patient();
+        if (userRequest != null) {
+            User user = userService.saveUser(userRequest);
             patient.setUser(user);
         }
         return patientRepository.save(patient);

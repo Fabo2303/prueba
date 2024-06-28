@@ -1,6 +1,6 @@
 package com.grupo5.sisvita.api.services;
 
-import com.grupo5.sisvita.api.dto.AnswerDTO;
+import com.grupo5.sisvita.api.dto.response.AnswerDTO;
 import com.grupo5.sisvita.api.entities.Answer;
 import com.grupo5.sisvita.api.repositories.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

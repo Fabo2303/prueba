@@ -1,6 +1,6 @@
 package com.grupo5.sisvita.api.services;
 
-import com.grupo5.sisvita.api.dto.TemplateTestDTO;
+import com.grupo5.sisvita.api.dto.response.TemplateTestDTO;
 import com.grupo5.sisvita.api.entities.TemplateTest;
 import com.grupo5.sisvita.api.repositories.TemplateTestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +32,14 @@ public class TemplateTestService {
         return templateTests.stream()
                 .map(TemplateTestDTO::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    public List<String> findAllName() {
+        return templateTestRepository.findAllName();
+    }
+
+    public List<String> findClassificationNameByName(String name) {
+        return templateTestRepository.findClassificationNameByName(name);
     }
 
 }

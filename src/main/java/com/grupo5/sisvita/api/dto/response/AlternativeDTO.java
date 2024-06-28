@@ -1,13 +1,15 @@
-package com.grupo5.sisvita.api.dto;
+package com.grupo5.sisvita.api.dto.response;
 
 import com.grupo5.sisvita.api.entities.Alternative;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @Builder
+@NoArgsConstructor
 public class AlternativeDTO {
     private Long id;
     private String description;

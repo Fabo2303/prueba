@@ -1,11 +1,15 @@
 package com.grupo5.sisvita.api.controllers;
 
-import com.grupo5.sisvita.api.dto.PatientDTO;
+import com.grupo5.sisvita.api.dto.response.PatientDTO;
+import com.grupo5.sisvita.api.dto.requests.PatientRequest;
 import com.grupo5.sisvita.api.entities.Patient;
 import com.grupo5.sisvita.api.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -15,9 +19,11 @@ public class PatientController {
     private PatientService patientService;
 
     @PostMapping()
-    public ResponseEntity<Patient> createPatient(@RequestBody Patient patient){
-        Patient savedPatient = patientService.savePatient(patient);
-        return ResponseEntity.ok(savedPatient);
+    public ResponseEntity<?> createPatient(@RequestBody PatientRequest patientRequest){
+        Patient savedPatient = patientService.savePatient(patientRequest);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Paciente creado con éxito");
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")

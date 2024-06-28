@@ -1,6 +1,8 @@
 package com.grupo5.sisvita.api.services;
 
-import com.grupo5.sisvita.api.dto.PersonaDTO;
+import com.grupo5.sisvita.api.dto.response.PersonaDTO;
+import com.grupo5.sisvita.api.dto.requests.PersonaRequest;
+import com.grupo5.sisvita.api.dto.requests.UbigeoRequest;
 import com.grupo5.sisvita.api.entities.Persona;
 import com.grupo5.sisvita.api.entities.Ubigeo;
 import com.grupo5.sisvita.api.repositories.PersonaRepository;
@@ -18,10 +20,15 @@ public class PersonaService {
     @Autowired
     private UbigeoService ubigeoService;
 
-    public Persona savePersona(Persona persona) {
-        Ubigeo ubigeo = persona.getUbigeo();
-        if (ubigeo != null) {
-            ubigeo = ubigeoService.findByUbigeo(ubigeo.getUbigeo());
+    public Persona savePersona(PersonaRequest personaRequest) {
+        Persona persona = PersonaRequest.toEntity(personaRequest);
+        UbigeoRequest ubigeoRequest = personaRequest.getUbigeoRequest();
+        if (ubigeoRequest != null) {
+            Ubigeo ubigeo = ubigeoService.findUbigeoByDepartamentoAndProvinciaAndDistritoObject(
+                    ubigeoRequest.getDepartamento(),
+                    ubigeoRequest.getProvincia(),
+                    ubigeoRequest.getDistrito()
+            );
             persona.setUbigeo(ubigeo);
         }
         return personaRepository.save(persona);

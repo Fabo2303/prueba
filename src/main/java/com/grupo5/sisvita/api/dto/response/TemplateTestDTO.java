@@ -1,15 +1,15 @@
-package com.grupo5.sisvita.api.dto;
+package com.grupo5.sisvita.api.dto.response;
 
 import com.grupo5.sisvita.api.entities.TemplateTest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class TemplateTestDTO {
     private Long id;
     private String name;

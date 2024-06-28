@@ -33,6 +33,16 @@ public class UbigeoService {
     }
 
     public String findUbigeoByDepartamentoAndProvinciaAndDistrito(String departamento, String provincia, String distrito) {
-        return ubigeoRepository.findUbigeoByDepartamentoAndProvinciaAndDistrito(departamento, provincia, distrito);
+        Ubigeo ubigeo = ubigeoRepository.findUbigeoByDepartamentoAndProvinciaAndDistrito(departamento, provincia, distrito).orElse(null);
+        assert ubigeo != null;
+        return ubigeo.getUbigeo();
+    }
+
+    public Ubigeo findUbigeoByDepartamentoAndProvinciaAndDistritoObject(String departamento, String provincia, String distrito) {
+        return ubigeoRepository.findUbigeoByDepartamentoAndProvinciaAndDistrito(departamento, provincia, distrito).orElse(null);
+    }
+
+    public List<String> findAllDepartamentos() {
+        return ubigeoRepository.findAllDepartamentos();
     }
 }

@@ -1,6 +1,8 @@
 package com.grupo5.sisvita.api.services;
 
-import com.grupo5.sisvita.api.dto.UserDTO;
+import com.grupo5.sisvita.api.dto.response.UserDTO;
+import com.grupo5.sisvita.api.dto.requests.PersonaRequest;
+import com.grupo5.sisvita.api.dto.requests.UserRequest;
 import com.grupo5.sisvita.api.entities.Persona;
 import com.grupo5.sisvita.api.entities.User;
 import com.grupo5.sisvita.api.repositories.UserRepository;
@@ -21,10 +23,11 @@ public class UserService {
     private PersonaService personaService;
 
     @Transactional
-    public User saveUser(User user) {
-        Persona persona = user.getPersona();
-        if (persona != null) {
-            persona = personaService.savePersona(persona);
+    public User saveUser(UserRequest userRequest) {
+        PersonaRequest personaRequest = userRequest.getPersonaRequest();
+        User user = UserRequest.toEntity(userRequest);
+        if (personaRequest != null) {
+            Persona persona = personaService.savePersona(personaRequest);
             user.setPersona(persona);
         }
         PasswordEncoder encoder = new BCryptPasswordEncoder();

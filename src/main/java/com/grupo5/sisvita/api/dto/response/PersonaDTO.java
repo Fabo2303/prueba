@@ -1,21 +1,24 @@
-package com.grupo5.sisvita.api.dto;
+package com.grupo5.sisvita.api.dto.response;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.grupo5.sisvita.api.entities.Persona;
 import com.grupo5.sisvita.config.CustomDateDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class PersonaDTO {
     private String document;
     private String documentType;
     private String name;
     private String lastName;
     private String secondLastName;
+
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date birthDate;
 

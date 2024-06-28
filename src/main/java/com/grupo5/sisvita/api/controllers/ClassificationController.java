@@ -1,6 +1,6 @@
 package com.grupo5.sisvita.api.controllers;
 
-import com.grupo5.sisvita.api.dto.ClassificationDTO;
+import com.grupo5.sisvita.api.dto.response.ClassificationDTO;
 import com.grupo5.sisvita.api.entities.Classification;
 import com.grupo5.sisvita.api.services.ClassificationService;
 import org.springframework.beans.factory.annotation.Autowired;

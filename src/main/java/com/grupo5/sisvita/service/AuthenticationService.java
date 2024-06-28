@@ -1,7 +1,11 @@
 package com.grupo5.sisvita.service;
 
 import com.grupo5.sisvita.api.entities.User;
+import com.grupo5.sisvita.api.repositories.PatientRepository;
+import com.grupo5.sisvita.api.repositories.SpecialistRepository;
 import com.grupo5.sisvita.api.repositories.UserRepository;
+import com.grupo5.sisvita.api.services.PatientService;
+import com.grupo5.sisvita.api.services.SpecialistService;
 import com.grupo5.sisvita.dto.AuthenticationRequest;
 import com.grupo5.sisvita.dto.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,12 @@ public class AuthenticationService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SpecialistRepository specialistRepository;
+
+    @Autowired
+    private PatientRepository patientRepository;
 
     @Autowired
     private JwtService jwtService;
@@ -40,10 +50,17 @@ public class AuthenticationService {
     }
 
     private Map<String, Object> generateExtraClaims(User user) {
+        String id = "";
+        if (user.getRole().name().equals("SPECIALIST")){
+            id = specialistRepository.findIdByIdUser(user.getId()).toString();
+        } else if (user.getRole().name().equals("PATIENT")){
+            id = patientRepository.findIdByIdUser(user.getId()).toString();
+        }
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("name", user.getUsername());
         extraClaims.put("role", user.getRole().name());
         extraClaims.put("permissions", user.getAuthorities());
+        extraClaims.put("id", id);
         return extraClaims;
     }
 }

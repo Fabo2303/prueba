@@ -28,24 +28,32 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Validated AuthenticationRequest authRequest) {
         User user = userRepository.findByUsername(authRequest.getUsername()).orElse(null);
+        Map<String, String> responseBody= new HashMap<>();
 
         if (user == null) {
-            return ResponseEntity.status(404).body("El usuario no existe");
+            responseBody.put("error", "El usuario no existe");
+            return ResponseEntity.status(404).body(responseBody);
         }
 
         AuthenticationResponse response = authenticationService.login(authRequest);
         if (response.getJwt() == null) {
-            return ResponseEntity.status(404).body("La contraseña es incorrecta");
+            responseBody.put("error", "La contraseña es incorrecta");
+            return ResponseEntity.status(404).body(responseBody);
         }
 
         if (user.getRole() == null) {
-            return ResponseEntity.status(404).body("El usuario no tiene un rol asignado");
+            responseBody.put("error", "El usuario no tiene un rol asignado");
+            return ResponseEntity.status(404).body(responseBody);
         }
 
         if (!user.isEnabled()) {
-            return ResponseEntity.status(404).body("El usuario no está habilitado");
+            responseBody.put("error", "El usuario no está habilitado");
+            return ResponseEntity.status(404).body(responseBody);
         }
-        return ResponseEntity.ok(response);
+
+        responseBody.put("message", "Bienvenido " + user.getUsername());
+        responseBody.put("jwt", response.getJwt());
+        return ResponseEntity.ok(responseBody);
     }
 
     @PreAuthorize("permitAll")

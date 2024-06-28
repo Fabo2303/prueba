@@ -1,6 +1,7 @@
 package com.grupo5.sisvita.api.controllers;
 
-import com.grupo5.sisvita.api.dto.UserDTO;
+import com.grupo5.sisvita.api.dto.response.UserDTO;
+import com.grupo5.sisvita.api.dto.requests.UserRequest;
 import com.grupo5.sisvita.api.entities.User;
 import com.grupo5.sisvita.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping()
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        User savedUser = userService.saveUser(user);
+    public ResponseEntity<User> createUser(@RequestBody UserRequest userRequest){
+        User savedUser = userService.saveUser(userRequest);
         return ResponseEntity.ok(savedUser);
     }
 

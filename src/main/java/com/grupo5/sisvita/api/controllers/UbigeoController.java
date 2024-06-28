@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/ubigeo")
@@ -31,21 +34,38 @@ public class UbigeoController {
         return ResponseEntity.ok(ubigeos);
     }
 
+    @GetMapping("/departamentos")
+    public ResponseEntity<?> getDepartamentos() {
+        List<String> departamentos = ubigeoService.findAllDepartamentos();
+        Map<String, List<String>> response = Map.of("departamentos", departamentos);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/provincias")
-    public ResponseEntity<Iterable<String>> getProvinciasByDepartamento(@RequestParam String departamento) {
-        Iterable<String> provincias = ubigeoService.findProvinciasByDepartamento(departamento);
-        return ResponseEntity.ok(provincias);
+    public ResponseEntity<?> getProvinciasByDepartamento(@RequestParam String departamento) {
+        List<String> provincias = ubigeoService.findProvinciasByDepartamento(departamento);
+        Map<String, List<String>> response = Map.of("provincias", provincias);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/distritos")
-    public ResponseEntity<Iterable<String>> getDistritosByDepartamentoAndProvincia(@RequestParam String departamento, @RequestParam String provincia) {
-        Iterable<String> distritos = ubigeoService.findDistritosByDepartamentoAndProvincia(departamento, provincia);
-        return ResponseEntity.ok(distritos);
+    public ResponseEntity<?> getDistritosByDepartamentoAndProvincia(@RequestParam String departamento, @RequestParam String provincia) {
+        List<String> distritos = ubigeoService.findDistritosByDepartamentoAndProvincia(departamento, provincia);
+        Map<String, List<String>> response = Map.of("distritos", distritos);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/ubigeo")
-    public ResponseEntity<String> getUbigeoByDepartamentoAndProvinciaAndDistrito(@RequestParam String departamento, @RequestParam String provincia, @RequestParam String distrito) {
+    public ResponseEntity<?> getUbigeoByDepartamentoAndProvinciaAndDistrito(@RequestParam String departamento, @RequestParam String provincia, @RequestParam String distrito) {
         String ubigeo = ubigeoService.findUbigeoByDepartamentoAndProvinciaAndDistrito(departamento, provincia, distrito);
-        return ResponseEntity.ok(ubigeo);
+        Map<String, String> response = Map.of("ubigeo", ubigeo);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/ubigeo-object")
+    public ResponseEntity<?> getUbigeoByDepartamentoAndProvinciaAndDistritoObject(@RequestParam String departamento, @RequestParam String provincia, @RequestParam String distrito) {
+        Ubigeo ubigeo = ubigeoService.findUbigeoByDepartamentoAndProvinciaAndDistritoObject(departamento, provincia, distrito);
+        Map<String, Ubigeo> response = Map.of("ubigeo", ubigeo);
+        return ResponseEntity.ok(response);
     }
 }

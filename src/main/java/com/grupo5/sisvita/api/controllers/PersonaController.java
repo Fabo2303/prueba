@@ -1,6 +1,7 @@
 package com.grupo5.sisvita.api.controllers;
 
-import com.grupo5.sisvita.api.dto.PersonaDTO;
+import com.grupo5.sisvita.api.dto.response.PersonaDTO;
+import com.grupo5.sisvita.api.dto.requests.PersonaRequest;
 import com.grupo5.sisvita.api.entities.Persona;
 import com.grupo5.sisvita.api.services.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class PersonaController {
     private PersonaService personaService;
 
     @PostMapping()
-    public ResponseEntity<Persona> createPersona(@RequestBody Persona persona) {
-        Persona savedPersona = personaService.savePersona(persona);
+    public ResponseEntity<Persona> createPersona(@RequestBody PersonaRequest personaRequest) {
+        Persona savedPersona = personaService.savePersona(personaRequest);
         return ResponseEntity.ok(savedPersona);
     }
 

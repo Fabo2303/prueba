@@ -1,5 +1,6 @@
 package com.grupo5.sisvita.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.grupo5.sisvita.config.CustomDateDeserializer;
@@ -19,6 +20,7 @@ public class ResolvedTest {
 
     private int result;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date date;
 
@@ -35,4 +37,12 @@ public class ResolvedTest {
     @OneToMany(mappedBy = "resolvedTest", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({"resolvedTest"})
     private List<Answer> answers = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idPaciente")
+    private Patient paciente;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idConsignacion")
+    private Consignacion consignacion = null;
 }

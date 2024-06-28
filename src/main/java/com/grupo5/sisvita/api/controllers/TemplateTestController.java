@@ -1,6 +1,6 @@
 package com.grupo5.sisvita.api.controllers;
 
-import com.grupo5.sisvita.api.dto.TemplateTestDTO;
+import com.grupo5.sisvita.api.dto.response.TemplateTestDTO;
 import com.grupo5.sisvita.api.entities.Alternative;
 import com.grupo5.sisvita.api.entities.Classification;
 import com.grupo5.sisvita.api.entities.Question;
@@ -9,6 +9,8 @@ import com.grupo5.sisvita.api.services.TemplateTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -48,5 +50,17 @@ public class TemplateTestController {
     public ResponseEntity<Iterable<TemplateTestDTO>> getAllTemplateTestsDTO() {
         Iterable<TemplateTestDTO> templateTests = templateTestService.findAllTemplateTests();
         return ResponseEntity.ok(templateTests);
+    }
+
+    @GetMapping("/name")
+    public ResponseEntity<List<String>> getAllTemplateTestsName() {
+        List<String> templateTests = templateTestService.findAllName();
+        return ResponseEntity.ok(templateTests);
+    }
+
+    @GetMapping("/classification")
+    public ResponseEntity<List<String>> getClassificationNameByName(@RequestParam String name) {
+        List<String> classifications = templateTestService.findClassificationNameByName(name);
+        return ResponseEntity.ok(classifications);
     }
 }

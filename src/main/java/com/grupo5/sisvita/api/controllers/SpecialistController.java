@@ -1,6 +1,7 @@
 package com.grupo5.sisvita.api.controllers;
 
-import com.grupo5.sisvita.api.dto.SpecialistDTO;
+import com.grupo5.sisvita.api.dto.response.SpecialistDTO;
+import com.grupo5.sisvita.api.dto.requests.SpecialistRequest;
 import com.grupo5.sisvita.api.entities.Specialist;
 import com.grupo5.sisvita.api.services.SpecialistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class SpecialistController {
     private SpecialistService specialistService;
 
     @PostMapping()
-    public ResponseEntity<Specialist> createSpecialist(@RequestBody Specialist specialist) {
-        Specialist savedSpecialist = specialistService.saveSpecialist(specialist);
+    public ResponseEntity<Specialist> createSpecialist(@RequestBody SpecialistRequest specialistRequest) {
+        Specialist savedSpecialist = specialistService.saveSpecialist(specialistRequest);
         return ResponseEntity.ok(savedSpecialist);
     }
 

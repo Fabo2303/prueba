@@ -1,13 +1,13 @@
-package com.grupo5.sisvita.api.dto;
+package com.grupo5.sisvita.api.dto.response;
 
 import com.grupo5.sisvita.api.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
     private Long id;
     private String username;

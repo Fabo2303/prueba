@@ -1,6 +1,6 @@
 package com.grupo5.sisvita.api.services;
 
-import com.grupo5.sisvita.api.dto.response.QuestionDTO;
+import com.grupo5.sisvita.api.dto.response.questions.QuestionResponse;
 import com.grupo5.sisvita.api.entities.Question;
 import com.grupo5.sisvita.api.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,9 @@ public class QuestionService {
         return questionRepository.findById(id).orElse(null);
     }
 
-    public List<QuestionDTO> findAllQuestions() {
+    public List<QuestionResponse> findAllQuestions() {
         List<Question> questions = questionRepository.findAll();
-        return questions.stream().map(QuestionDTO::fromEntity).collect(Collectors.toList());
+        return questions.stream().map(QuestionResponse::fromEntity).collect(Collectors.toList());
     }
 
     public List<Question> findAll() {

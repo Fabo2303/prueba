@@ -1,7 +1,7 @@
 package com.grupo5.sisvita.api.controllers;
 
+import com.grupo5.sisvita.api.dto.requests.ConsignacionRequest;
 import com.grupo5.sisvita.api.entities.Consignacion;
-import com.grupo5.sisvita.api.entities.ResolvedTest;
 import com.grupo5.sisvita.api.services.ConsignacionService;
 import com.grupo5.sisvita.api.services.ResolvedTestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,12 @@ public class ConsignacionController {
 
     @PostMapping
     public ResponseEntity<String> save(@RequestBody Consignacion consignacion, @RequestParam Long idtest) {
-        Consignacion consignacionSaved = consignacionService.save(consignacion);
-        ResolvedTest resolvedTest = resolvedTestService.findById(idtest);
-        resolvedTest.setConsignacion(consignacionSaved);
-        resolvedTestService.saveResolvedTest(resolvedTest);
-        return ResponseEntity.ok("Consignacion guardada con éxito");
+        return ResponseEntity.ok("Consignacion guardada");
+    }
+
+    @PostMapping("/insert")
+    public ResponseEntity<String> insert(@RequestBody ConsignacionRequest consignacionRequest) {
+        consignacionService.insert(consignacionRequest);
+        return ResponseEntity.ok("Consignacion guardada");
     }
 }

@@ -1,6 +1,7 @@
 package com.grupo5.sisvita.api.controllers;
 
-import com.grupo5.sisvita.api.dto.response.TemplateTestDTO;
+import com.grupo5.sisvita.api.dto.response.templatetest.TemplateTestResponse;
+import com.grupo5.sisvita.api.dto.response.templatetest.TemplateTestWithAlternativesAndQuestionsResponse;
 import com.grupo5.sisvita.api.entities.Alternative;
 import com.grupo5.sisvita.api.entities.Classification;
 import com.grupo5.sisvita.api.entities.Question;
@@ -47,9 +48,15 @@ public class TemplateTestController {
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<Iterable<TemplateTestDTO>> getAllTemplateTestsDTO() {
-        Iterable<TemplateTestDTO> templateTests = templateTestService.findAllTemplateTests();
+    public ResponseEntity<Iterable<TemplateTestResponse>> getAllTemplateTestsDTO() {
+        Iterable<TemplateTestResponse> templateTests = templateTestService.findAllTemplateTests();
         return ResponseEntity.ok(templateTests);
+    }
+
+    @GetMapping("/dto/{id}")
+    public ResponseEntity<TemplateTestWithAlternativesAndQuestionsResponse> getTemplateTestDTOById(@PathVariable Long id) {
+        TemplateTestWithAlternativesAndQuestionsResponse templateTest = templateTestService.findDtoById(id);
+        return ResponseEntity.ok(templateTest);
     }
 
     @GetMapping("/name")

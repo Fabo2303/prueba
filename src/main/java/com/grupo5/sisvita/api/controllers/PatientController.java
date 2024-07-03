@@ -20,8 +20,12 @@ public class PatientController {
 
     @PostMapping()
     public ResponseEntity<?> createPatient(@RequestBody PatientRequest patientRequest){
-        Patient savedPatient = patientService.savePatient(patientRequest);
+        Patient patient = patientService.savePatient(patientRequest);
         Map<String, String> response = new HashMap<>();
+        if (patient == null) {
+            response.put("error", "Error al crear paciente");
+            return ResponseEntity.badRequest().body(response);
+        }
         response.put("message", "Paciente creado con éxito");
         return ResponseEntity.ok(response);
     }

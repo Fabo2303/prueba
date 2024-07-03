@@ -41,17 +41,10 @@ public class AuthenticationController {
             return ResponseEntity.status(404).body(responseBody);
         }
 
-        if (user.getRole() == null) {
-            responseBody.put("error", "El usuario no tiene un rol asignado");
-            return ResponseEntity.status(404).body(responseBody);
-        }
-
         if (!user.isEnabled()) {
             responseBody.put("error", "El usuario no está habilitado");
             return ResponseEntity.status(404).body(responseBody);
         }
-
-        responseBody.put("message", "Bienvenido " + user.getUsername());
         responseBody.put("jwt", response.getJwt());
         return ResponseEntity.ok(responseBody);
     }

@@ -34,7 +34,6 @@ public class HttpSecurityConfig {
                 .authorizeHttpRequests(authConfig -> {
                     authConfig.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
                     authConfig.requestMatchers(HttpMethod.GET, "/auth/public-access").permitAll();
-
                     authConfig.requestMatchers(HttpMethod.GET, "/api/alternative/**").permitAll();
                     authConfig.requestMatchers(HttpMethod.POST, "/api/alternative/**").permitAll();
                     authConfig.requestMatchers(HttpMethod.GET, "/api/classification/**").permitAll();
@@ -57,6 +56,12 @@ public class HttpSecurityConfig {
                     authConfig.requestMatchers(HttpMethod.POST, "/api/template-test/**").permitAll();
                     authConfig.requestMatchers(HttpMethod.GET, "/api/consignacion/**").permitAll();
                     authConfig.requestMatchers(HttpMethod.POST, "/api/consignacion/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/document/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/sex/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/diagnostic/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/diagnostic/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/api/treatment/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/api/treatment/**").permitAll();
                 });
         return http.build();
     }

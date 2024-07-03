@@ -1,6 +1,6 @@
 package com.grupo5.sisvita.api.controllers;
 
-import com.grupo5.sisvita.api.dto.response.QuestionDTO;
+import com.grupo5.sisvita.api.dto.response.questions.QuestionResponse;
 import com.grupo5.sisvita.api.entities.Question;
 import com.grupo5.sisvita.api.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("/dto")
-    public List<QuestionDTO> getAllQuestions() {
+    public List<QuestionResponse> getAllQuestions() {
         return questionService.findAllQuestions();
     }
 

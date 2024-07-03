@@ -37,4 +37,9 @@ public class ClassificationService {
         return classification.orElse(null);
     }
 
+    public List<ClassificationDTO> findByTemplateTestName(String templateTestName) {
+        List<Classification> classification = classificationRepository.findByTemplateTestName(templateTestName);
+        return classification.stream().map(ClassificationDTO::fromEntity).toList();
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.grupo5.sisvita.api.services;
 
-import com.grupo5.sisvita.api.dto.response.AlternativeDTO;
+import com.grupo5.sisvita.api.dto.response.alternatives.AlternativeResponse;
 import com.grupo5.sisvita.api.entities.Alternative;
 import com.grupo5.sisvita.api.repositories.AlternativeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +26,10 @@ public class AlternativesService {
         return alternativeRepository.findAll();
     }
 
-    public List<AlternativeDTO> findAllAlternatives() {
+    public List<AlternativeResponse> findAllAlternatives() {
         List<Alternative> alternatives = alternativeRepository.findAll();
         return alternatives.stream()
-                .map(AlternativeDTO::fromEntity)
+                .map(AlternativeResponse::fromEntity)
                 .collect(Collectors.toList());
     }
 }

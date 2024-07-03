@@ -15,6 +15,13 @@ public class Classification {
     private int maximum;
     private String interpretation;
 
+    private int intensity;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "anxiety_color_id")
+    @JsonIgnoreProperties("classifications")
+    private AnxietyColor anxietyColor;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "template_test_id")
     @JsonIgnoreProperties({"questions", "alternatives", "classifications"})

@@ -3,10 +3,7 @@ package com.grupo5.sisvita.api.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.grupo5.sisvita.config.CustomDateDeserializer;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
@@ -22,8 +19,26 @@ public class Consignacion {
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date date;
 
-    private String newInterpretation;
     private String observation;
-    private String message;
-    private Boolean medicalAppointmentRequested;
+    private String fundament;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idPaciente")
+    private Patient paciente;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idSpecialist")
+    private Specialist specialist;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idTestResolved")
+    private ResolvedTest resolvedTest;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idDiagnostic")
+    private Diagnostic diagnostic;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idTreatment")
+    private Treatment treatment;
 }

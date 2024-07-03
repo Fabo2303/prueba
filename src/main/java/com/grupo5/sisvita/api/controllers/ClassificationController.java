@@ -5,10 +5,9 @@ import com.grupo5.sisvita.api.entities.Classification;
 import com.grupo5.sisvita.api.services.ClassificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -32,6 +31,12 @@ public class ClassificationController {
     @GetMapping("/findById/{id}")
     public ResponseEntity<Classification> findById(Long id) {
         Classification classification = classificationService.findById(id);
+        return ResponseEntity.ok().body(classification);
+    }
+
+    @GetMapping("/findByTemplateTestName")
+    public ResponseEntity<List<ClassificationDTO>> findByTemplateTestName(@RequestParam String templateTestName) {
+        List<ClassificationDTO> classification = classificationService.findByTemplateTestName(templateTestName);
         return ResponseEntity.ok().body(classification);
     }
 }
